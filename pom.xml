@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>co.com.artico</groupId>
+    <artifactId>digitalPerson-API</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    
+    <dependencies>        
+        <dependency>
+            <groupId>dpfpenrollment</groupId>
+            <artifactId>dpfpenrollment</artifactId>
+            <version>1</version>
+        </dependency>        
+        <dependency>
+            <groupId>dpfpverification</groupId>
+            <artifactId>dpfpverification</artifactId>
+            <version>1</version>
+        </dependency>        
+        <dependency>
+            <groupId>sqljdbc4</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>1</version>
+        </dependency>        
+        <dependency>
+            <groupId>dpotapi</groupId>
+            <artifactId>dpotapi</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>dpotjni</groupId>
+            <artifactId>dpotjni</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>gxclassc</groupId>
+            <artifactId>gxclassc</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>gxclassp</groupId>
+            <artifactId>gxclassp</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>GxUtils</groupId>
+            <artifactId>GxUtils</artifactId>
+            <version>1</version>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <finalName>digitalPerson-API</finalName>
+        <plugins>            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <!-- Make this jar executable -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>                    
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <!--Jar file entry point--> 
+                            <mainClass>com.digitalpersona.onetouch.views.FormSercurityAuth</mainClass>
+                            <classpathPrefix>dependency-jars/</classpathPrefix>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+                        
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!-- exclude junit, we need runtime dependency only -->
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+        
+</project>
